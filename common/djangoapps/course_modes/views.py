@@ -34,6 +34,7 @@ from openedx.core.djangoapps.catalog.utils import get_currency_data
 from openedx.core.djangoapps.embargo import api as embargo_api
 from openedx.features.content_type_gating.models import ContentTypeGatingConfig
 from openedx.features.course_duration_limits.models import CourseDurationLimitConfig
+from openedx.features.course_experience.utils import get_first_purchase_offer_banner_fragment
 from student.models import CourseEnrollment
 from util.db import outer_atomic
 from xmodule.modulestore.django import modulestore
@@ -209,6 +210,11 @@ class ChooseModeView(View):
                     context['currency_data'] = json.dumps(currency_data)
                 except TypeError:
                     pass
+
+        context['offer_banner_fragment'] = get_first_purchase_offer_banner_fragment(
+            request.user, course
+        )
+
         return render_to_response("course_modes/choose.html", context)
 
     @method_decorator(transaction.non_atomic_requests)
