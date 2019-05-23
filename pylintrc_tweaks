@@ -8,6 +8,7 @@ load-plugins+=,caniusepython3.pylint_checker
 # Disable unicode-format-string until we can agree to turn it on.
 disable+ =
     native-string,
+    ungrouped-imports,
 
 [BASIC]
 attr-rgx = [a-z_][a-z0-9_]{2,40}$
